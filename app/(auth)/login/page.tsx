@@ -57,7 +57,7 @@ export default function Page() {
         <div className="flex flex-col items-center justify-center gap-2 px-4 text-center sm:px-16">
           <h3 className="text-xl font-semibold dark:text-zinc-50">Sign In</h3>
           <p className="text-sm text-gray-500 dark:text-zinc-400">
-            Use your email and password to sign in
+            Welcome to our Finance Agent. Use your email and password to sign in
           </p>
         </div>
         <AuthForm action={handleSubmit} defaultEmail={email}>

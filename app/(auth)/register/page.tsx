@@ -9,9 +9,11 @@ import { SubmitButton } from '@/components/submit-button';
 
 import { register, type RegisterActionState } from '../actions';
 import { toast } from '@/components/toast';
+import {useSession} from "next-auth/react";
 
 export default function Page() {
   const router = useRouter();
+  const { data: session, update } = useSession(); // ✅ Use NextAuth session handling
 
   const [email, setEmail] = useState('');
   const [isSuccessful, setIsSuccessful] = useState(false);
@@ -34,10 +36,14 @@ export default function Page() {
         description: 'Failed validating your submission!',
       });
     } else if (state.status === 'success') {
-      toast({ type: 'success', description: 'Account created successfully!' });
+      toast({type: 'success', description: 'Account created successfully!'});
 
       setIsSuccessful(true);
-      router.refresh();
+      // 🔥 Manually refresh session before navigating
+      update().then(() => {
+        console.log("✅ Session updated, redirecting to app...");
+        router.push('/'); // ✅ Redirect to homepage
+      });
     }
   }, [state, router]);
 
